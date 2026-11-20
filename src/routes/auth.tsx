@@ -3,12 +3,10 @@ import { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Loader2, Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
+import { authService } from "@/services/auth.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -114,15 +112,21 @@ function SignInForm({ onSuccess }: { onSuccess: () => void }) {
   });
 
   const onSubmit = async (values: SignInValues) => {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword(values);
-    setLoading(false);
-    if (error) {
-      toast.error("Sign in failed", { description: error.message });
-      return;
+    try {
+      setLoading(true);
+
+      await authService.login(values);
+
+      toast.success("Welcome back!");
+
+      onSuccess();
+    } catch (error: any) {
+      toast.error(
+        error?.body?.message ?? "Invalid email or password"
+      );
+    } finally {
+      setLoading(false);
     }
-    toast.success("Welcome back");
-    onSuccess();
   };
 
   return (
@@ -182,25 +186,25 @@ function SignUpForm({ onSuccess }: { onSuccess: () => void }) {
   });
 
   const onSubmit = async (values: SignUpValues) => {
-    setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/verify-email`,
-        data: { full_name: values.fullName },
-      },
-    });
-    setLoading(false);
-    if (error) {
-      toast.error("Sign up failed", { description: error.message });
-      return;
+    try {
+      setLoading(true);
+
+      await authService.register({
+        name: values.fullName,
+        email: values.email,
+        password: values.password,
+      });
+
+      toast.success("Account created successfully!");
+
+      onSuccess();
+    } catch (error: any) {
+      toast.error(
+        error?.body?.message ?? "Registration failed"
+      );
+    } finally {
+      setLoading(false);
     }
-    setSent(true);
-    toast.success("Check your email", {
-      description: "We sent you a verification link.",
-    });
-    setTimeout(onSuccess, 1500);
   };
 
   if (sent) {

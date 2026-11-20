@@ -26,9 +26,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.4.0(react-hook-form@7.81.0(react@19.2.7))
-      '@lovable.dev/cloud-auth-js':
-        specifier: ^1.1.2
-        version: 1.1.2
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.16(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -630,9 +627,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@lovable.dev/cloud-auth-js@1.1.2':
-    resolution: {integrity: sha512-xz8ocewsgwkp8giau272/eWWU3XrchCg5uba4yQPPYtevHTXaVU3sD+fO1JjyPBHacVcOcwhmgUiU9TKHt63cg==}
 
   '@lovable.dev/vite-plugin-dev-server-bridge@1.0.3':
     resolution: {integrity: sha512-b+SDAim/8n2WHt7ZRXlfc8JS75vXD2H454ntuXrQe0QTUY8x0/lsS7rTxYESoRHnuvhwE3Cw7Io5bRnO3Gz1PA==}
@@ -3836,8 +3830,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@lovable.dev/cloud-auth-js@1.1.2': {}
 
   '@lovable.dev/vite-plugin-dev-server-bridge@1.0.3(vite@8.1.3(@types/node@22.20.1)(jiti@1.21.7))':
     dependencies:
